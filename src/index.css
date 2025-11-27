@@ -8,35 +8,52 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Warm Autumn Harvest Palette */
+    --background: 40 30% 97%;
+    --foreground: 25 35% 20%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 40 25% 98%;
+    --card-foreground: 25 35% 20%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 40 25% 98%;
+    --popover-foreground: 25 35% 20%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Warm amber/pumpkin orange as primary */
+    --primary: 30 85% 55%;
+    --primary-foreground: 40 25% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Deep cranberry/burgundy as secondary */
+    --secondary: 0 60% 45%;
+    --secondary-foreground: 40 25% 98%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    /* Soft autumn muted tones */
+    --muted: 35 25% 88%;
+    --muted-foreground: 25 20% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Golden accent */
+    --accent: 45 90% 62%;
+    --accent-foreground: 25 35% 20%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 70% 50%;
+    --destructive-foreground: 40 25% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 35 20% 85%;
+    --input: 35 20% 90%;
+    --ring: 30 85% 55%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+    
+    /* Custom harvest gradients */
+    --gradient-harvest: linear-gradient(135deg, hsl(30 85% 55%), hsl(20 80% 50%), hsl(10 75% 48%));
+    --gradient-sunset: linear-gradient(180deg, hsl(35 75% 65%), hsl(30 80% 55%));
+    --gradient-warm: linear-gradient(to bottom, hsl(40 30% 97%), hsl(35 35% 92%));
+    
+    /* Shadows with warm tones */
+    --shadow-harvest: 0 10px 40px -10px hsl(30 75% 45% / 0.3);
+    --shadow-card: 0 4px 20px -2px hsl(30 60% 50% / 0.15);
+    
+    /* Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 
@@ -56,33 +73,41 @@ All colors MUST be HSL.
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
+    /* Dark autumn mode - deep, cozy tones */
+    --background: 25 25% 12%;
+    --foreground: 40 30% 95%;
 
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
+    --card: 25 22% 15%;
+    --card-foreground: 40 30% 95%;
 
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 25 22% 15%;
+    --popover-foreground: 40 30% 95%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 35 85% 60%;
+    --primary-foreground: 25 25% 12%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 0 55% 40%;
+    --secondary-foreground: 40 30% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 15% 22%;
+    --muted-foreground: 35 15% 65%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 45 85% 58%;
+    --accent-foreground: 25 25% 12%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 30% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --border: 25 15% 22%;
+    --input: 25 15% 22%;
+    --ring: 35 85% 60%;
+    
+    --gradient-harvest: linear-gradient(135deg, hsl(35 80% 50%), hsl(25 75% 45%), hsl(15 70% 42%));
+    --gradient-sunset: linear-gradient(180deg, hsl(35 70% 45%), hsl(30 75% 40%));
+    --gradient-warm: linear-gradient(to bottom, hsl(25 25% 12%), hsl(25 22% 15%));
+    
+    --shadow-harvest: 0 10px 40px -10px hsl(30 60% 35% / 0.5);
+    --shadow-card: 0 4px 20px -2px hsl(30 50% 30% / 0.3);
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -101,5 +126,62 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-harvest {
+    background: var(--gradient-harvest);
+  }
+  
+  .gradient-sunset {
+    background: var(--gradient-sunset);
+  }
+  
+  .gradient-warm {
+    background: var(--gradient-warm);
+  }
+  
+  .shadow-harvest {
+    box-shadow: var(--shadow-harvest);
+  }
+  
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .transition-smooth {
+    transition: var(--transition-smooth);
+  }
+  
+  /* Falling leaves animation */
+  @keyframes fall {
+    0% {
+      transform: translateY(-10vh) rotate(0deg);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(110vh) rotate(360deg);
+      opacity: 0;
+    }
+  }
+  
+  .animate-fall {
+    animation: fall linear infinite;
+  }
+  
+  /* Gentle pulse for interactive elements */
+  @keyframes gentle-pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+  }
+  
+  .animate-gentle-pulse {
+    animation: gentle-pulse 3s ease-in-out infinite;
   }
 }
