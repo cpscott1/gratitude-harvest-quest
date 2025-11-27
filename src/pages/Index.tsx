@@ -1,12 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Sparkles } from "lucide-react";
 import { EmailCaptureModal } from "@/components/EmailCaptureModal";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleEmailSubmit = (data: { email: string; firstName: string }) => {
     setIsModalOpen(false);
@@ -14,8 +15,11 @@ const Index = () => {
       title: `Welcome, ${data.firstName}! 🎉`,
       description: "Your gratitude journey begins now. Let's start filling that bingo card!",
     });
-    // TODO: In Step 3, we'll navigate to the bingo board
-    console.log("User submitted:", data);
+    
+    // Navigate to board after a short delay
+    setTimeout(() => {
+      navigate('/board');
+    }, 1000);
   };
 
   return (
