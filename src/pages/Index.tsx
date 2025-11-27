@@ -1,11 +1,100 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Button } from "@/components/ui/button";
+import { Sparkles } from "lucide-react";
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div className="min-h-screen gradient-warm relative overflow-hidden">
+      {/* Falling Leaves Animation */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(15)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-4xl animate-fall opacity-60"
+            style={{
+              left: `${Math.random() * 100}%`,
+              animationDuration: `${15 + Math.random() * 10}s`,
+              animationDelay: `${Math.random() * 5}s`,
+            }}
+          >
+            🍂
+          </div>
+        ))}
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20">
+        <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
+          {/* Header */}
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full border border-accent/30 mb-4">
+              <Sparkles className="w-4 h-4 text-accent" />
+              <span className="text-sm font-medium text-accent-foreground">
+                A Thanksgiving Tradition
+              </span>
+            </div>
+            
+            <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
+              Harvest Gratitude
+              <span className="block text-primary">Bingo</span>
+            </h1>
+            
+            <p className="text-xl md:text-2xl text-muted-foreground max-w-2xl mx-auto">
+              Turn gratitude into a game this Thanksgiving. Complete your bingo card, 
+              unlock rewards, and create meaningful moments with loved ones.
+            </p>
+          </div>
+
+          {/* CTA Button */}
+          <div className="pt-4">
+            <Button
+              size="lg"
+              className="text-lg px-8 py-6 gradient-harvest hover:shadow-harvest transition-smooth animate-gentle-pulse font-semibold"
+            >
+              Start My Gratitude Bingo
+            </Button>
+          </div>
+
+          {/* Feature Highlights */}
+          <div className="grid md:grid-cols-3 gap-6 pt-12">
+            {[
+              {
+                emoji: "🎯",
+                title: "Interactive Play",
+                description: "Click squares, share gratitude, complete your card"
+              },
+              {
+                emoji: "🎁",
+                title: "Unlock Rewards",
+                description: "Earn discounts and enter giveaways as you play"
+              },
+              {
+                emoji: "❤️",
+                title: "Make an Impact",
+                description: "Complete your card and we'll donate to charity"
+              }
+            ].map((feature, i) => (
+              <div
+                key={i}
+                className="bg-card border border-border rounded-xl p-6 shadow-card-harvest hover:shadow-harvest transition-smooth"
+              >
+                <div className="text-5xl mb-3">{feature.emoji}</div>
+                <h3 className="text-lg font-semibold text-card-foreground mb-2">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* American Harvest Foods Branding */}
+          <div className="pt-8 opacity-75">
+            <p className="text-sm text-muted-foreground">
+              Presented by <span className="font-semibold text-foreground">American Harvest Foods</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );

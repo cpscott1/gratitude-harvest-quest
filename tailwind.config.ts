@@ -58,6 +58,15 @@ export default {
           ring: "hsl(var(--sidebar-ring))",
         },
       },
+      backgroundImage: {
+        'gradient-harvest': 'var(--gradient-harvest)',
+        'gradient-sunset': 'var(--gradient-sunset)',
+        'gradient-warm': 'var(--gradient-warm)',
+      },
+      boxShadow: {
+        'harvest': 'var(--shadow-harvest)',
+        'card-harvest': 'var(--shadow-card)',
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -80,10 +89,41 @@ export default {
             height: "0",
           },
         },
+        fall: {
+          "0%": {
+            transform: "translateY(-10vh) rotate(0deg)",
+            opacity: "1",
+          },
+          "100%": {
+            transform: "translateY(110vh) rotate(360deg)",
+            opacity: "0",
+          },
+        },
+        "gentle-pulse": {
+          "0%, 100%": {
+            transform: "scale(1)",
+          },
+          "50%": {
+            transform: "scale(1.02)",
+          },
+        },
+        "fade-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        fall: "fall linear infinite",
+        "gentle-pulse": "gentle-pulse 3s ease-in-out infinite",
+        "fade-in": "fade-in 0.5s ease-out",
       },
     },
   },
