@@ -42,13 +42,6 @@ const Index = () => {
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
           {/* Header */}
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 rounded-full border border-accent/30 mb-4">
-              <Sparkles className="w-4 h-4 text-accent" />
-              <span className="text-sm font-medium text-accent-foreground">
-                A Thanksgiving Tradition
-              </span>
-            </div>
-            
             <h1 className="text-5xl md:text-7xl font-bold text-foreground leading-tight">
               Harvest Gratitude
               <span className="block text-primary">Bingo</span>
