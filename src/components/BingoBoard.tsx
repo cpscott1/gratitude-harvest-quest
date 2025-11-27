@@ -1,26 +1,30 @@
 import { useState, useEffect } from "react";
 import { gratitudePrompts } from "@/data/gratitudePrompts";
 import { GratitudeModal } from "./GratitudeModal";
+import { RewardsModal } from "./RewardsModal";
+import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-interface BingoSquare {
-  id: number;
-  prompt: string;
-  completed: boolean;
-  reflection: string;
-}
+import confetti from "canvas-confetti";
+import { checkBingoLines, getRewardStatus, BingoSquare } from "@/utils/bingoLogic";
+import { useToast } from "@/hooks/use-toast";
 
 export const BingoBoard = () => {
   const [squares, setSquares] = useState<BingoSquare[]>([]);
   const [selectedSquare, setSelectedSquare] = useState<BingoSquare | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRewardsModalOpen, setIsRewardsModalOpen] = useState(false);
+  const [previousLineCount, setPreviousLineCount] = useState(0);
+  const { toast } = useToast();
 
   // Initialize board
   useEffect(() => {
     const savedProgress = localStorage.getItem('bingo_progress');
     if (savedProgress) {
-      setSquares(JSON.parse(savedProgress));
+      const saved = JSON.parse(savedProgress);
+      setSquares(saved);
+      const lines = checkBingoLines(saved);
+      setPreviousLineCount(lines.length);
     } else {
       const initialSquares = gratitudePrompts.map((prompt, index) => ({
         id: index,
@@ -30,13 +34,78 @@ export const BingoBoard = () => {
       }));
       setSquares(initialSquares);
       localStorage.setItem('bingo_progress', JSON.stringify(initialSquares));
+      setPreviousLineCount(0);
     }
   }, []);
 
-  // Save progress
+  // Save progress and check for celebrations
   const saveProgress = (updatedSquares: BingoSquare[]) => {
     localStorage.setItem('bingo_progress', JSON.stringify(updatedSquares));
     setSquares(updatedSquares);
+    
+    const currentLines = checkBingoLines(updatedSquares);
+    const rewardStatus = getRewardStatus(updatedSquares);
+    
+    // Check if new line completed
+    if (currentLines.length > previousLineCount) {
+      triggerLineCelebration();
+      setPreviousLineCount(currentLines.length);
+      
+      toast({
+        title: "🎉 Bingo Line Complete!",
+        description: "You've completed a line! Check your rewards.",
+      });
+      
+      // Show rewards modal after a delay
+      setTimeout(() => {
+        setIsRewardsModalOpen(true);
+      }, 2000);
+    }
+    
+    // Check if full card completed
+    if (rewardStatus.hasFullCard && previousLineCount < currentLines.length) {
+      triggerFullCardCelebration();
+      
+      toast({
+        title: "🏆 FULL CARD COMPLETE!",
+        description: "Amazing! You've completed your entire gratitude journey!",
+      });
+    }
+  };
+  
+  const triggerLineCelebration = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+  
+  const triggerFullCardCelebration = () => {
+    const duration = 3000;
+    const end = Date.now() + duration;
+
+    const frame = () => {
+      confetti({
+        particleCount: 3,
+        angle: 60,
+        spread: 55,
+        origin: { x: 0 },
+        colors: ['#F97316', '#DC2626', '#FBBF24']
+      });
+      confetti({
+        particleCount: 3,
+        angle: 120,
+        spread: 55,
+        origin: { x: 1 },
+        colors: ['#F97316', '#DC2626', '#FBBF24']
+      });
+
+      if (Date.now() < end) {
+        requestAnimationFrame(frame);
+      }
+    };
+    frame();
   };
 
   const handleSquareClick = (square: BingoSquare) => {
@@ -59,6 +128,7 @@ export const BingoBoard = () => {
   };
 
   const completedCount = squares.filter(s => s.completed).length;
+  const rewardStatus = getRewardStatus(squares);
 
   return (
     <>
@@ -106,8 +176,14 @@ export const BingoBoard = () => {
         </div>
 
         {/* Progress Info */}
-        <div className="mt-4 text-center text-sm text-muted-foreground">
-          {completedCount} of 25 squares completed
+        <div className="mt-4 text-center">
+          <Button
+            variant="outline"
+            onClick={() => setIsRewardsModalOpen(true)}
+            className="font-semibold"
+          >
+            View My Rewards
+          </Button>
         </div>
       </div>
 
@@ -120,6 +196,15 @@ export const BingoBoard = () => {
           onComplete={handleComplete}
         />
       )}
+      
+      {/* Rewards Modal */}
+      <RewardsModal
+        open={isRewardsModalOpen}
+        onOpenChange={setIsRewardsModalOpen}
+        hasDiscount={rewardStatus.unlockedRewards.discount}
+        hasGiveaway={rewardStatus.unlockedRewards.giveaway}
+        hasCharity={rewardStatus.unlockedRewards.charity}
+      />
     </>
   );
 };
