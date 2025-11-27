@@ -6,13 +6,28 @@ import { ShareButton } from "@/components/ShareButton";
 import { CertificateGenerator } from "@/components/CertificateGenerator";
 import { GratitudeWall } from "@/components/GratitudeWall";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, RotateCcw } from "lucide-react";
 import { getRewardStatus, BingoSquare } from "@/utils/bingoLogic";
+import { useToast } from "@/hooks/use-toast";
 
 const Board = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
   const [squares, setSquares] = useState<BingoSquare[]>([]);
+  const { toast } = useToast();
+
+  // Clear localStorage function for testing
+  const clearBingoData = () => {
+    localStorage.removeItem('bingo_progress');
+    localStorage.removeItem('harvest_user');
+    toast({
+      title: "🔄 Data Cleared!",
+      description: "Bingo progress and user data have been cleared. Redirecting to start...",
+    });
+    setTimeout(() => {
+      navigate('/');
+    }, 1500);
+  };
 
   useEffect(() => {
     // Check if user has submitted email
@@ -41,6 +56,18 @@ const Board = () => {
     
     return () => clearInterval(interval);
   }, [navigate]);
+  // Add keyboard shortcut for clearing data (Ctrl+Shift+R)
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.shiftKey && event.key === 'R') {
+        event.preventDefault();
+        clearBingoData();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [clearBingoData]);
   
   const rewardStatus = getRewardStatus(squares);
 
@@ -75,6 +102,15 @@ const Board = () => {
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
           </Button>
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={clearBingoData}
+            className="opacity-50 hover:opacity-100 ml-3"
+          >
+            <RotateCcw className="w-4 h-4 mr-2" />
+            Reset (Dev)
+          </Button>
           
           {userName && (
             <h1 className="text-2xl md:text-3xl font-bold text-foreground">
@@ -108,6 +144,12 @@ const Board = () => {
           </div>
         )}
 
+        {/* Dev Note */}
+        <div className="mt-6 text-center">
+          <p className="text-xs text-muted-foreground opacity-75">
+            Dev: Press <kbd className="px-2 py-1 bg-muted text-muted-foreground rounded text-xs">Ctrl+Shift+R</kbd> to reset data
+          </p>
+        </div>
         {/* Gratitude Wall */}
         <GratitudeWall />
 
