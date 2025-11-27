@@ -59,9 +59,6 @@ export const EmailCaptureModal = ({ open, onOpenChange, onSubmit }: EmailCapture
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md bg-card border-2 border-primary/20 shadow-harvest">
         <DialogHeader className="space-y-3">
-          <div className="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-primary" />
-          </div>
           <DialogTitle className="text-2xl font-bold text-center text-card-foreground">
             Welcome to Gratitude Bingo!
           </DialogTitle>
