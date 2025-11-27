@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { EmailCaptureModal } from "@/components/EmailCaptureModal";
-import { Logo } from "@/components/Logo";
 import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
@@ -25,11 +24,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen gradient-warm relative overflow-hidden">
-      {/* Logo */}
-      <div className="absolute top-6 left-6 z-20">
-        <Logo />
-      </div>
-      
       {/* Falling Leaves Animation */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(15)].map((_, i) => (
@@ -48,7 +42,7 @@ const Index = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20 pt-24">
+      <div className="relative z-10 container mx-auto px-4 py-12 md:py-20">
         <div className="max-w-4xl mx-auto text-center space-y-8 animate-fade-in">
           {/* Header */}
           <div className="space-y-4">

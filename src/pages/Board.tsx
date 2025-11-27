@@ -5,7 +5,6 @@ import { ProgressTracker } from "@/components/ProgressTracker";
 import { ShareButton } from "@/components/ShareButton";
 import { CertificateGenerator } from "@/components/CertificateGenerator";
 import { GratitudeWall } from "@/components/GratitudeWall";
-import { Logo } from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { getRewardStatus, BingoSquare } from "@/utils/bingoLogic";
@@ -47,11 +46,6 @@ const Board = () => {
 
   return (
     <div className="min-h-screen gradient-warm relative overflow-hidden">
-      {/* Logo */}
-      <div className="absolute top-6 left-6 z-20">
-        <Logo />
-      </div>
-      
       {/* Falling Leaves Animation */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(10)].map((_, i) => (
@@ -70,7 +64,7 @@ const Board = () => {
       </div>
 
       {/* Main Content */}
-      <div className="relative z-10 container mx-auto px-4 py-8 md:py-12 pt-24">
+      <div className="relative z-10 container mx-auto px-4 py-8 md:py-12">
         {/* Header */}
         <div className="mb-8">
           <Button
