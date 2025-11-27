@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BingoBoard } from "@/components/BingoBoard";
 import { ProgressTracker } from "@/components/ProgressTracker";
+import { ShareButton } from "@/components/ShareButton";
+import { CertificateGenerator } from "@/components/CertificateGenerator";
+import { GratitudeWall } from "@/components/GratitudeWall";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { getRewardStatus, BingoSquare } from "@/utils/bingoLogic";
@@ -92,6 +95,21 @@ const Board = () => {
 
         {/* Bingo Board */}
         <BingoBoard />
+
+        {/* Action Buttons */}
+        {squares.length > 0 && (
+          <div className="w-full max-w-4xl mx-auto mt-6 flex flex-wrap gap-3 justify-center">
+            <ShareButton completedCount={rewardStatus.completedCount} />
+            <CertificateGenerator 
+              userName={userName}
+              completedCount={rewardStatus.completedCount}
+              hasFullCard={rewardStatus.hasFullCard}
+            />
+          </div>
+        )}
+
+        {/* Gratitude Wall */}
+        <GratitudeWall />
 
         {/* American Harvest Foods Branding */}
         <div className="mt-12 text-center opacity-75">
