@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BingoBoard } from "@/components/BingoBoard";
+import { ProgressTracker } from "@/components/ProgressTracker";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import { getRewardStatus, BingoSquare } from "@/utils/bingoLogic";
 
 const Board = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState("");
+  const [squares, setSquares] = useState<BingoSquare[]>([]);
 
   useEffect(() => {
     // Check if user has submitted email
@@ -18,7 +21,25 @@ const Board = () => {
     
     const { firstName } = JSON.parse(userData);
     setUserName(firstName);
+    
+    // Load bingo progress
+    const savedProgress = localStorage.getItem('bingo_progress');
+    if (savedProgress) {
+      setSquares(JSON.parse(savedProgress));
+    }
+    
+    // Poll for updates to bingo progress
+    const interval = setInterval(() => {
+      const updatedProgress = localStorage.getItem('bingo_progress');
+      if (updatedProgress) {
+        setSquares(JSON.parse(updatedProgress));
+      }
+    }, 500);
+    
+    return () => clearInterval(interval);
   }, [navigate]);
+  
+  const rewardStatus = getRewardStatus(squares);
 
   return (
     <div className="min-h-screen gradient-warm relative overflow-hidden">
@@ -58,6 +79,16 @@ const Board = () => {
             </h1>
           )}
         </div>
+
+        {/* Progress Tracker */}
+        {squares.length > 0 && (
+          <ProgressTracker
+            completedCount={rewardStatus.completedCount}
+            totalCount={25}
+            completedLines={rewardStatus.completedLines}
+            hasFullCard={rewardStatus.hasFullCard}
+          />
+        )}
 
         {/* Bingo Board */}
         <BingoBoard />
