@@ -97,6 +97,10 @@ export const RewardsModal = ({
           >
             Continue Playing
           </Button>
+
+          <p className="text-xs text-center text-muted-foreground pt-2">
+            Share your progress to inspire others and spread gratitude this Thanksgiving!
+          </p>
         </div>
       </DialogContent>
     </Dialog>
