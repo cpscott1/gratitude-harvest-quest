@@ -7,7 +7,7 @@ export const Logo = () => {
       <img 
         src={logoImage} 
         alt="Harvest Gratitude Bingo Logo" 
-        className="w-20 h-20 md:w-28 md:h-28"
+        className="w-20 h-20 md:w-28 md:h-28 mix-blend-multiply opacity-90"
       />
     </Link>
   );
