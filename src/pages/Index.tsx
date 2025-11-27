@@ -1,7 +1,23 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
+import { EmailCaptureModal } from "@/components/EmailCaptureModal";
+import { useToast } from "@/hooks/use-toast";
 
 const Index = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { toast } = useToast();
+
+  const handleEmailSubmit = (data: { email: string; firstName: string }) => {
+    setIsModalOpen(false);
+    toast({
+      title: `Welcome, ${data.firstName}! 🎉`,
+      description: "Your gratitude journey begins now. Let's start filling that bingo card!",
+    });
+    // TODO: In Step 3, we'll navigate to the bingo board
+    console.log("User submitted:", data);
+  };
+
   return (
     <div className="min-h-screen gradient-warm relative overflow-hidden">
       {/* Falling Leaves Animation */}
@@ -48,11 +64,19 @@ const Index = () => {
           <div className="pt-4">
             <Button
               size="lg"
+              onClick={() => setIsModalOpen(true)}
               className="text-lg px-8 py-6 gradient-harvest hover:shadow-harvest transition-smooth animate-gentle-pulse font-semibold"
             >
               Start My Gratitude Bingo
             </Button>
           </div>
+
+          {/* Email Capture Modal */}
+          <EmailCaptureModal
+            open={isModalOpen}
+            onOpenChange={setIsModalOpen}
+            onSubmit={handleEmailSubmit}
+          />
 
           {/* Feature Highlights */}
           <div className="grid md:grid-cols-3 gap-6 pt-12">
