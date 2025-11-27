@@ -25,8 +25,8 @@ export const BingoBoard = () => {
       const initialSquares = gratitudePrompts.map((prompt, index) => ({
         id: index,
         prompt,
-        completed: index === 13, // Free space (center) starts completed
-        reflection: index === 13 ? "Free Space!" : ""
+        completed: index === 12, // Free space (center) starts completed
+        reflection: index === 12 ? "Free Space!" : ""
       }));
       setSquares(initialSquares);
       localStorage.setItem('bingo_progress', JSON.stringify(initialSquares));
@@ -86,7 +86,7 @@ export const BingoBoard = () => {
                 square.completed
                   ? "bg-primary/20 border-primary cursor-default"
                   : "bg-background border-border hover:border-primary hover:shadow-card-harvest cursor-pointer hover:scale-105",
-                square.id === 13 && "bg-accent/30 border-accent"
+                square.id === 12 && "bg-accent/30 border-accent"
               )}
             >
               <span className={cn(
